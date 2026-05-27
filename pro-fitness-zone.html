@@ -1,0 +1,2086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="PRO Fitness Zone - Premium Gym & Fitness Center in Bankura, West Bengal. Transform your body, build your strength with expert trainers and modern equipment.">
+<meta name="keywords" content="gym, fitness, Bankura, West Bengal, strength training, personal training, PRO Fitness Zone">
+<title>PRO Fitness Zone | Transform Your Body. Build Your Strength.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: #0a0a0a;
+  color: #f0f0f0;
+  overflow-x: hidden;
+  cursor: default;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; outline: none; background: none; font-family: inherit; }
+
+/* ============================================================
+   CSS VARIABLES
+   ============================================================ */
+:root {
+  --red: #e8192c;
+  --red-glow: rgba(232,25,44,0.6);
+  --red-dim: rgba(232,25,44,0.15);
+  --gold: #f5a623;
+  --gold-glow: rgba(245,166,35,0.5);
+  --orange: #ff6b35;
+  --white: #ffffff;
+  --off-white: #e8e8e8;
+  --silver: #a8a8a8;
+  --dark: #0a0a0a;
+  --dark-2: #111111;
+  --dark-3: #181818;
+  --dark-4: #222222;
+  --dark-5: #2a2a2a;
+  --glass: rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.08);
+  --nav-h: 72px;
+  --section-pad: clamp(60px, 8vw, 100px);
+  --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================
+   LOADING SCREEN
+   ============================================================ */
+#loader {
+  position: fixed; inset: 0;
+  background: #0a0a0a;
+  z-index: 9999;
+  display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 20px;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+#loader.hidden { opacity: 0; visibility: hidden; }
+.loader-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 8vw, 60px);
+  letter-spacing: 4px;
+  color: var(--white);
+}
+.loader-logo span { color: var(--red); }
+.loader-bar-wrap {
+  width: 200px; height: 3px;
+  background: var(--dark-4);
+  border-radius: 2px; overflow: hidden;
+}
+.loader-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--red), var(--gold));
+  border-radius: 2px;
+  animation: loadBar 1.8s ease forwards;
+}
+@keyframes loadBar { from { width: 0 } to { width: 100% } }
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--dark); }
+::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(16px, 5vw, 60px);
+  transition: var(--transition);
+  background: transparent;
+}
+#navbar.scrolled {
+  background: rgba(10,10,10,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  letter-spacing: 3px;
+  color: var(--white);
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-logo span { color: var(--red); }
+.nav-logo-icon {
+  width: 36px; height: 36px;
+  background: var(--red);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.nav-links {
+  display: flex; align-items: center; gap: clamp(16px, 2.5vw, 36px);
+}
+.nav-links a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--silver);
+  transition: var(--transition);
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0; right: 0;
+  height: 2px;
+  background: var(--red);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+.nav-cta {
+  background: var(--red);
+  color: var(--white) !important;
+  padding: 10px 22px;
+  border-radius: 4px;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.5px;
+  transition: var(--transition) !important;
+  box-shadow: 0 0 20px var(--red-glow);
+}
+.nav-cta::after { display: none !important; }
+.nav-cta:hover {
+  background: #ff2a3d !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 30px var(--red-glow) !important;
+  color: var(--white) !important;
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column; gap: 5px;
+  padding: 8px;
+  z-index: 1010;
+}
+.hamburger span {
+  display: block; width: 26px; height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile Menu */
+#mobile-menu {
+  position: fixed; inset: 0;
+  background: rgba(10,10,10,0.98);
+  backdrop-filter: blur(20px);
+  z-index: 990;
+  display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 32px;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+}
+#mobile-menu.open { transform: translateX(0); }
+#mobile-menu a {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(28px, 8vw, 40px);
+  letter-spacing: 4px;
+  color: var(--off-white);
+  transition: var(--transition);
+}
+#mobile-menu a:hover { color: var(--red); }
+#mobile-menu .mob-cta {
+  background: var(--red);
+  color: var(--white);
+  padding: 14px 40px;
+  border-radius: 4px;
+  font-size: 22px;
+  box-shadow: 0 0 30px var(--red-glow);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+#hero {
+  position: relative;
+  height: 100vh; min-height: 600px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: 
+    linear-gradient(135deg, rgba(232,25,44,0.12) 0%, transparent 50%),
+    linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.75) 100%),
+    url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80') center/cover no-repeat;
+  transform: scale(1.05);
+  animation: heroZoom 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes heroZoom { from { transform: scale(1.05) } to { transform: scale(1.12) } }
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(10,10,10,0.85) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  text-align: center;
+  padding: 0 clamp(16px, 5vw, 60px);
+  max-width: 900px;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--red-dim);
+  border: 1px solid rgba(232,25,44,0.4);
+  border-radius: 100px;
+  padding: 7px 18px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 24px;
+  animation: fadeInDown 0.8s ease forwards;
+}
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--red);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.5)} }
+.hero-h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 10vw, 110px);
+  line-height: 0.95;
+  letter-spacing: 2px;
+  color: var(--white);
+  animation: fadeInUp 0.9s 0.2s ease both;
+  text-shadow: 0 0 80px rgba(0,0,0,0.8);
+}
+.hero-h1 .accent { color: var(--red); display: block; }
+.hero-sub {
+  font-size: clamp(14px, 2vw, 17px);
+  font-weight: 400;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 1px;
+  max-width: 520px;
+  margin: 20px auto 0;
+  line-height: 1.7;
+  animation: fadeInUp 0.9s 0.4s ease both;
+}
+.hero-brand {
+  font-weight: 700;
+  color: var(--white);
+}
+.hero-buttons {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.9s 0.6s ease both;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--red);
+  color: var(--white);
+  padding: 16px 36px;
+  border-radius: 4px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: var(--transition);
+  box-shadow: 0 0 30px var(--red-glow), 0 4px 20px rgba(0,0,0,0.4);
+  position: relative; overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 40px var(--red-glow), 0 4px 20px rgba(0,0,0,0.4);
+}
+.btn-primary:hover::before { opacity: 1; }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: transparent;
+  color: var(--white);
+  padding: 15px 36px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.3);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+.btn-secondary:hover {
+  border-color: var(--white);
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-3px);
+}
+.hero-stats {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  display: flex; justify-content: center;
+  gap: 0;
+  z-index: 2;
+}
+.hero-stat {
+  flex: 1; max-width: 200px;
+  padding: 28px 20px;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--glass-border);
+  border-right: 1px solid var(--glass-border);
+  text-align: center;
+  transition: var(--transition);
+}
+.hero-stat:last-child { border-right: none; }
+.hero-stat:hover { background: rgba(232,25,44,0.1); }
+.hero-stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(28px, 4vw, 38px);
+  color: var(--red);
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--silver);
+  margin-top: 4px;
+}
+.hero-scroll-hint {
+  position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%);
+  z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  animation: fadeInUp 1s 1s ease both;
+}
+.scroll-line {
+  width: 1px; height: 50px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.5));
+  animation: scrollLine 2s ease infinite;
+}
+@keyframes scrollLine { 0%,100%{opacity:0.3;transform:scaleY(0.5)} 50%{opacity:1;transform:scaleY(1)} }
+
+/* ============================================================
+   SECTION SHARED
+   ============================================================ */
+.section { padding: var(--section-pad) clamp(16px, 5vw, 80px); }
+.section-label {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 16px;
+}
+.section-label::before, .section-label::after {
+  content: '';
+  display: block; height: 1px; width: 30px;
+  background: var(--red);
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(38px, 6vw, 72px);
+  letter-spacing: 2px;
+  line-height: 1;
+  color: var(--white);
+}
+.section-title span { color: var(--red); }
+.section-sub {
+  font-size: clamp(14px, 1.5vw, 16px);
+  color: var(--silver);
+  line-height: 1.8;
+  max-width: 560px;
+  margin-top: 14px;
+}
+.text-center { text-align: center; }
+.text-center .section-sub { margin: 14px auto 0; }
+.text-center .section-label { justify-content: center; }
+.container { max-width: 1280px; margin: 0 auto; }
+
+/* reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* fade in animations */
+@keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+#about { background: var(--dark-2); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 6vw, 80px);
+  align-items: center;
+  max-width: 1280px; margin: 0 auto;
+}
+.about-img-wrap {
+  position: relative;
+}
+.about-img-main {
+  width: 100%; height: clamp(300px, 50vw, 560px);
+  object-fit: cover;
+  border-radius: 8px;
+  filter: brightness(0.9) contrast(1.1);
+  transition: transform 0.5s ease;
+}
+.about-img-wrap:hover .about-img-main { transform: scale(1.02); }
+.about-img-accent {
+  position: absolute;
+  bottom: -24px; right: -24px;
+  width: 55%; height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 4px solid var(--dark-2);
+  filter: brightness(0.9);
+  transition: transform 0.5s ease;
+}
+.about-img-wrap:hover .about-img-accent { transform: translate(4px, 4px); }
+.about-badge-float {
+  position: absolute; top: 24px; left: -16px;
+  background: var(--red);
+  padding: 16px 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 8px 30px var(--red-glow);
+}
+.about-badge-float strong {
+  display: block;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 38px;
+  color: var(--white);
+  line-height: 1;
+}
+.about-badge-float span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+}
+.about-content { padding: 20px 0; }
+.about-list { margin-top: 28px; display: flex; flex-direction: column; gap: 14px; }
+.about-item {
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.about-item-icon {
+  width: 42px; height: 42px; flex-shrink: 0;
+  background: var(--red-dim);
+  border: 1px solid rgba(232,25,44,0.3);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  transition: var(--transition);
+}
+.about-item:hover .about-item-icon {
+  background: var(--red);
+  box-shadow: 0 0 20px var(--red-glow);
+}
+.about-item-text strong {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--white);
+  margin-bottom: 2px;
+}
+.about-item-text p { font-size: 13px; color: var(--silver); line-height: 1.6; }
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+#services { background: var(--dark); }
+.services-header { max-width: 1280px; margin: 0 auto 48px; }
+.services-grid {
+  max-width: 1280px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.service-card {
+  background: var(--dark-3);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 36px 30px;
+  position: relative; overflow: hidden;
+  transition: var(--transition);
+  cursor: default;
+}
+.service-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--red), var(--gold));
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+.service-card::after {
+  content: '';
+  position: absolute; bottom: 0; right: 0;
+  width: 100px; height: 100px;
+  background: radial-gradient(circle, var(--red-dim), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.service-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(232,25,44,0.3);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(232,25,44,0.1);
+}
+.service-card:hover::before { transform: scaleX(1); }
+.service-card:hover::after { opacity: 1; }
+.service-icon {
+  width: 56px; height: 56px;
+  background: var(--red-dim);
+  border: 1px solid rgba(232,25,44,0.3);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  margin-bottom: 22px;
+  transition: var(--transition);
+}
+.service-card:hover .service-icon {
+  background: var(--red);
+  box-shadow: 0 0 20px var(--red-glow);
+}
+.service-card h3 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--white);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.service-card p {
+  font-size: 13px;
+  color: var(--silver);
+  line-height: 1.7;
+}
+.service-num {
+  position: absolute; top: 20px; right: 24px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  color: rgba(255,255,255,0.03);
+  line-height: 1;
+  transition: color 0.4s;
+}
+.service-card:hover .service-num { color: rgba(232,25,44,0.08); }
+
+/* ============================================================
+   WHY CHOOSE US
+   ============================================================ */
+#why { background: var(--dark-2); }
+.why-inner { max-width: 1280px; margin: 0 auto; }
+.why-header { margin-bottom: 52px; }
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+.why-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 32px 28px;
+  display: flex; align-items: flex-start; gap: 18px;
+  transition: var(--transition);
+}
+.why-card:hover {
+  transform: translateY(-6px);
+  background: rgba(232,25,44,0.05);
+  border-color: rgba(232,25,44,0.25);
+  box-shadow: 0 16px 50px rgba(0,0,0,0.3);
+}
+.why-icon {
+  width: 52px; height: 52px; flex-shrink: 0;
+  background: var(--red-dim);
+  border: 1px solid rgba(232,25,44,0.3);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  transition: var(--transition);
+}
+.why-card:hover .why-icon {
+  background: var(--red);
+  box-shadow: 0 0 20px var(--red-glow);
+}
+.why-text h4 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.why-text p { font-size: 13px; color: var(--silver); line-height: 1.65; }
+
+/* ============================================================
+   MEMBERSHIP
+   ============================================================ */
+#membership { background: var(--dark); }
+.mem-inner { max-width: 1280px; margin: 0 auto; }
+.mem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 52px;
+  align-items: start;
+}
+.mem-card {
+  background: var(--dark-3);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: var(--transition);
+  position: relative;
+}
+.mem-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+}
+.mem-card.featured {
+  border-color: var(--red);
+  box-shadow: 0 0 40px rgba(232,25,44,0.2);
+}
+.mem-card.featured:hover {
+  box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 60px rgba(232,25,44,0.3);
+}
+.mem-badge {
+  position: absolute; top: 18px; right: 18px;
+  background: var(--red);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 100px;
+  box-shadow: 0 0 15px var(--red-glow);
+}
+.mem-header {
+  padding: 32px 28px 24px;
+  border-bottom: 1px solid var(--glass-border);
+  background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent);
+}
+.mem-tier {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--silver);
+  margin-bottom: 8px;
+}
+.mem-plan {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  letter-spacing: 2px;
+  color: var(--white);
+}
+.mem-price {
+  margin-top: 12px;
+  display: flex; align-items: baseline; gap: 4px;
+}
+.mem-price .currency { font-size: 18px; font-weight: 700; color: var(--silver); }
+.mem-price .amount {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 52px;
+  color: var(--white);
+  line-height: 1;
+}
+.mem-card.featured .mem-price .amount { color: var(--red); }
+.mem-price .period { font-size: 13px; color: var(--silver); }
+.mem-body { padding: 24px 28px 32px; }
+.mem-features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+.mem-feat {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 13px; color: var(--off-white);
+}
+.mem-feat .check {
+  width: 20px; height: 20px; flex-shrink: 0;
+  background: rgba(232,25,44,0.15);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: var(--red);
+}
+.mem-feat.disabled { opacity: 0.35; }
+.mem-feat.disabled .check { background: rgba(255,255,255,0.05); color: var(--silver); }
+.mem-btn {
+  display: block; width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  transition: var(--transition);
+}
+.mem-btn-outline {
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--white);
+}
+.mem-btn-outline:hover {
+  border-color: var(--red);
+  color: var(--red);
+  background: var(--red-dim);
+}
+.mem-btn-fill {
+  background: var(--red);
+  color: var(--white);
+  box-shadow: 0 0 25px var(--red-glow);
+}
+.mem-btn-fill:hover {
+  background: #ff2a3d;
+  box-shadow: 0 6px 35px var(--red-glow);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+#testimonials { background: var(--dark-2); }
+.test-inner { max-width: 1280px; margin: 0 auto; }
+.rating-showcase {
+  display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  margin: 36px 0 48px;
+  padding: 28px 32px;
+  background: var(--dark-3);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+}
+.rating-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  color: var(--gold);
+  line-height: 1;
+}
+.rating-details { flex: 1; min-width: 160px; }
+.stars { font-size: 22px; letter-spacing: 2px; color: var(--gold); }
+.rating-count { font-size: 13px; color: var(--silver); margin-top: 4px; }
+.rating-bar-group { flex: 2; min-width: 200px; display: flex; flex-direction: column; gap: 6px; }
+.rating-row { display: flex; align-items: center; gap: 10px; }
+.rating-row span { font-size: 12px; color: var(--silver); width: 30px; text-align: right; }
+.rating-bar-bg { flex: 1; height: 6px; background: var(--dark-5); border-radius: 3px; overflow: hidden; }
+.rating-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--red));
+  border-radius: 3px;
+  transition: width 1.5s ease;
+}
+.test-slider-wrap { position: relative; overflow: hidden; }
+.test-slider {
+  display: flex; gap: 20px;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.test-card {
+  min-width: calc(33.333% - 14px);
+  background: var(--dark-3);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 28px 26px;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+.test-card:hover {
+  border-color: rgba(245,166,35,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+.test-stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; margin-bottom: 14px; }
+.test-text {
+  font-size: 14px; color: var(--off-white);
+  line-height: 1.75;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+.test-author { display: flex; align-items: center; gap: 12px; }
+.test-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--red);
+}
+.test-name { font-weight: 700; font-size: 14px; color: var(--white); }
+.test-since { font-size: 11px; color: var(--silver); margin-top: 2px; }
+.test-controls {
+  display: flex; align-items: center; gap: 12px;
+  margin-top: 32px; justify-content: center;
+}
+.test-btn {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--silver);
+  font-size: 16px;
+  transition: var(--transition);
+}
+.test-btn:hover { border-color: var(--red); color: var(--red); background: var(--red-dim); }
+.test-dots { display: flex; gap: 8px; }
+.test-dot {
+  width: 8px; height: 8px;
+  border-radius: 4px;
+  background: var(--dark-5);
+  transition: var(--transition);
+  cursor: pointer;
+}
+.test-dot.active { width: 24px; background: var(--red); }
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+#gallery { background: var(--dark); }
+.gallery-inner { max-width: 1280px; margin: 0 auto; }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  gap: 12px;
+  margin-top: 48px;
+}
+.gallery-item {
+  position: relative; overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+.gallery-item:nth-child(4) { grid-column: span 2; }
+.gallery-img {
+  width: 100%; height: 100%; min-height: 200px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  display: block;
+}
+.gallery-item:hover .gallery-img { transform: scale(1.08); }
+.gallery-overlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.3s ease;
+}
+.gallery-item:hover .gallery-overlay { background: rgba(232,25,44,0.3); }
+.gallery-zoom {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; color: var(--dark);
+  transform: scale(0);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.gallery-item:hover .gallery-zoom { transform: scale(1); }
+
+/* Lightbox */
+#lightbox {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 9000;
+  display: none; align-items: center; justify-content: center;
+  padding: 20px;
+}
+#lightbox.open { display: flex; }
+#lightbox img {
+  max-width: 90vw; max-height: 85vh;
+  border-radius: 8px;
+  object-fit: contain;
+}
+#lb-close {
+  position: absolute; top: 20px; right: 20px;
+  width: 44px; height: 44px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--white); font-size: 20px;
+  cursor: pointer; transition: var(--transition);
+}
+#lb-close:hover { background: var(--red); }
+
+/* ============================================================
+   INSTAGRAM
+   ============================================================ */
+#instagram { background: var(--dark-2); }
+.insta-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+.insta-card {
+  background: var(--dark-3);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 48px 40px;
+  margin-top: 40px;
+  position: relative; overflow: hidden;
+}
+.insta-card::before {
+  content: '';
+  position: absolute; top: -80px; right: -80px;
+  width: 250px; height: 250px;
+  background: radial-gradient(circle, rgba(225,48,108,0.15), transparent 70%);
+}
+.insta-logo { font-size: 56px; margin-bottom: 16px; }
+.insta-handle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 3px;
+  color: var(--white);
+}
+.insta-desc { font-size: 14px; color: var(--silver); margin: 12px 0 28px; line-height: 1.6; }
+.insta-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  color: var(--white);
+  padding: 16px 36px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  transition: var(--transition);
+  box-shadow: 0 4px 30px rgba(220,39,67,0.4);
+  animation: instaGlow 3s ease infinite;
+}
+.insta-btn:hover { transform: scale(1.05); box-shadow: 0 8px 40px rgba(220,39,67,0.6); }
+@keyframes instaGlow { 0%,100%{box-shadow:0 4px 30px rgba(220,39,67,0.4)} 50%{box-shadow:0 4px 40px rgba(220,39,67,0.7)} }
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+#contact { background: var(--dark); }
+.contact-inner { max-width: 1280px; margin: 0 auto; }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: clamp(32px, 5vw, 60px);
+  margin-top: 52px;
+}
+.contact-info { display: flex; flex-direction: column; gap: 20px; }
+.contact-item {
+  display: flex; align-items: flex-start; gap: 16px;
+  background: var(--dark-3);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 22px 20px;
+  transition: var(--transition);
+}
+.contact-item:hover {
+  border-color: rgba(232,25,44,0.3);
+  transform: translateX(4px);
+}
+.ci-icon {
+  width: 46px; height: 46px; flex-shrink: 0;
+  background: var(--red-dim);
+  border: 1px solid rgba(232,25,44,0.3);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.ci-text label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--silver); }
+.ci-text p { font-size: 14px; color: var(--off-white); margin-top: 4px; line-height: 1.5; font-weight: 500; }
+.ci-text a { color: var(--off-white); transition: color 0.2s; }
+.ci-text a:hover { color: var(--red); }
+.action-btns { display: flex; gap: 12px; margin-top: 4px; }
+.action-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 700; font-size: 13px;
+  letter-spacing: 1px;
+  transition: var(--transition);
+}
+.call-btn { background: var(--red); color: var(--white); box-shadow: 0 0 20px var(--red-glow); }
+.call-btn:hover { background: #ff2a3d; transform: translateY(-2px); box-shadow: 0 6px 30px var(--red-glow); }
+.wa-btn { background: #25d366; color: var(--white); box-shadow: 0 0 20px rgba(37,211,102,0.4); }
+.wa-btn:hover { background: #20ba5a; transform: translateY(-2px); box-shadow: 0 6px 30px rgba(37,211,102,0.6); }
+
+/* contact form */
+.contact-form-wrap {
+  background: var(--dark-3);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: clamp(24px, 4vw, 40px);
+}
+.contact-form-wrap h3 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 28px;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.form-group label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--silver); }
+.form-group input,
+.form-group textarea,
+.form-group select {
+  background: var(--dark-4);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: var(--white);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+  width: 100%;
+  resize: vertical;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(232,25,44,0.1);
+}
+.form-group textarea { min-height: 120px; }
+.form-submit {
+  width: 100%;
+  padding: 16px;
+  background: var(--red);
+  color: var(--white);
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: var(--transition);
+  box-shadow: 0 0 25px var(--red-glow);
+}
+.form-submit:hover { background: #ff2a3d; transform: translateY(-2px); box-shadow: 0 6px 35px var(--red-glow); }
+
+/* map */
+.map-wrap {
+  margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 220px;
+  border: 1px solid var(--glass-border);
+}
+.map-wrap iframe { width: 100%; height: 100%; border: none; filter: grayscale(30%) invert(5%); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--dark-2);
+  border-top: 1px solid var(--glass-border);
+}
+.footer-main {
+  max-width: 1280px; margin: 0 auto;
+  padding: clamp(48px, 6vw, 80px) clamp(16px, 5vw, 60px) clamp(32px, 4vw, 48px);
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1.3fr;
+  gap: 40px;
+}
+.footer-brand {}
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 3px;
+  color: var(--white);
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
+}
+.footer-logo span { color: var(--red); }
+.footer-logo-icon {
+  width: 38px; height: 38px;
+  background: var(--red);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.footer-desc { font-size: 13px; color: var(--silver); line-height: 1.75; max-width: 280px; }
+.footer-socials { display: flex; gap: 10px; margin-top: 20px; }
+.social-btn {
+  width: 38px; height: 38px;
+  border-radius: 8px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  transition: var(--transition);
+}
+.social-btn:hover { background: var(--red); border-color: var(--red); transform: translateY(-3px); }
+.footer-col h4 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--red);
+  display: inline-block;
+}
+.footer-links { display: flex; flex-direction: column; gap: 10px; }
+.footer-links a { font-size: 13px; color: var(--silver); transition: var(--transition); display: flex; align-items: center; gap: 6px; }
+.footer-links a::before { content: '›'; color: var(--red); font-size: 16px; }
+.footer-links a:hover { color: var(--white); padding-left: 4px; }
+.footer-contact-list { display: flex; flex-direction: column; gap: 12px; }
+.fci {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: var(--silver); line-height: 1.5;
+}
+.fci span:first-child { color: var(--red); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.fci a { color: var(--silver); transition: color 0.2s; }
+.fci a:hover { color: var(--red); }
+.footer-bottom {
+  border-top: 1px solid var(--glass-border);
+  padding: 20px clamp(16px, 5vw, 60px);
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+}
+.footer-copy { font-size: 12px; color: rgba(168,168,168,0.6); }
+.footer-copy span { color: var(--red); }
+.footer-legal { display: flex; gap: 20px; }
+.footer-legal a { font-size: 12px; color: rgba(168,168,168,0.5); transition: color 0.2s; }
+.footer-legal a:hover { color: var(--silver); }
+
+/* ============================================================
+   FLOATING BUTTONS
+   ============================================================ */
+.float-btns {
+  position: fixed; bottom: 24px; right: 24px;
+  display: flex; flex-direction: column; gap: 12px;
+  z-index: 800;
+}
+.float-btn {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  transition: var(--transition);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+.float-wa { background: #25d366; color: var(--white); }
+.float-wa:hover { background: #20ba5a; transform: scale(1.1); box-shadow: 0 6px 30px rgba(37,211,102,0.5); }
+.float-top {
+  background: var(--dark-3);
+  border: 1px solid var(--glass-border);
+  color: var(--silver);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.float-top.visible { opacity: 1; pointer-events: all; }
+.float-top:hover { border-color: var(--red); color: var(--red); transform: translateY(-3px); }
+
+/* ============================================================
+   SECTION DIVIDER
+   ============================================================ */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--glass-border) 30%, var(--glass-border) 70%, transparent);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1100px) {
+  .footer-main { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .about-img-accent { display: none; }
+  .about-badge-float { top: 16px; left: 16px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .test-card { min-width: calc(50% - 10px); }
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  .gallery-item:nth-child(1) { grid-column: span 2; }
+  .gallery-item:nth-child(4) { grid-column: span 1; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .hero-stats { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; }
+}
+@media (max-width: 640px) {
+  .footer-main { grid-template-columns: 1fr; gap: 28px; }
+  .test-card { min-width: 100%; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+  .gallery-item:nth-child(4) { grid-column: span 2; }
+  .form-row { grid-template-columns: 1fr; }
+  .hero-stats { display: none; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .mem-grid { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .action-btns { flex-direction: column; }
+  .action-btn { justify-content: center; }
+}
+@media (max-width: 380px) {
+  .gallery-grid { grid-template-columns: 1fr; }
+  .gallery-item:nth-child(1),
+  .gallery-item:nth-child(4) { grid-column: span 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">PRO <span>FITNESS</span> ZONE</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true">
+  <div id="lb-close" aria-label="Close lightbox">✕</div>
+  <img id="lb-img" src="" alt="Gallery image">
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <a href="#hero" class="nav-logo" aria-label="PRO Fitness Zone">
+    <div class="nav-logo-icon">💪</div>
+    PRO <span>FITNESS</span> ZONE
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#membership">Plans</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="tel:7384648673" class="nav-cta">Join Now</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+  <a href="#about" class="mob-link">About</a>
+  <a href="#services" class="mob-link">Services</a>
+  <a href="#membership" class="mob-link">Plans</a>
+  <a href="#testimonials" class="mob-link">Reviews</a>
+  <a href="#gallery" class="mob-link">Gallery</a>
+  <a href="#contact" class="mob-link">Contact</a>
+  <a href="tel:7384648673" class="mob-cta mob-link">Join Now</a>
+</div>
+
+<!-- HERO -->
+<section id="hero" aria-label="Hero section">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🔥 Premium Fitness Center — Bankura</div>
+    <h1 class="hero-h1">
+      Transform Your Body.
+      <span class="accent">Build Your Strength.</span>
+    </h1>
+    <p class="hero-sub">
+      Welcome to <span class="hero-brand">PRO Fitness Zone</span> — where champions are made. Professional equipment, expert trainers, and a community that pushes you further every single day.
+    </p>
+    <div class="hero-buttons">
+      <a href="tel:7384648673" class="btn-primary">
+        <span>⚡</span> Join Now
+      </a>
+      <a href="#contact" class="btn-secondary">
+        <span>→</span> Contact Us
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint" aria-hidden="true">
+    <div class="scroll-line"></div>
+  </div>
+  <div class="hero-stats" aria-label="Key statistics">
+    <div class="hero-stat">
+      <div class="hero-stat-num" data-count="500">0</div>
+      <div class="hero-stat-label">Members</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num" data-count="221">0</div>
+      <div class="hero-stat-label">5★ Reviews</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num" data-count="10">0</div>
+      <div class="hero-stat-label">Expert Trainers</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num" data-suffix="+">5</div>
+      <div class="hero-stat-label">Years Experience</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section" aria-label="About us">
+  <div class="about-grid">
+    <div class="about-img-wrap reveal">
+      <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80" alt="PRO Fitness Zone gym interior with modern equipment" class="about-img-main" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=500&q=80" alt="Fitness training session" class="about-img-accent" loading="lazy">
+      <div class="about-badge-float">
+        <strong>5★</strong>
+        <span>221 Reviews</span>
+      </div>
+    </div>
+    <div class="about-content reveal reveal-delay-2">
+      <div class="section-label">Our Story</div>
+      <h2 class="section-title">More Than Just A <span>Gym</span></h2>
+      <p class="section-sub">PRO Fitness Zone is Bankura's premier fitness destination, built for those who demand the best. Our state-of-the-art facility combines professional-grade equipment with expert guidance to deliver real results.</p>
+      <div class="about-list">
+        <div class="about-item">
+          <div class="about-item-icon">🏋️</div>
+          <div class="about-item-text">
+            <strong>Modern Equipment</strong>
+            <p>Fully equipped with premium machines, free weights, and cardio gear designed for optimal performance.</p>
+          </div>
+        </div>
+        <div class="about-item">
+          <div class="about-item-icon">🎯</div>
+          <div class="about-item-text">
+            <strong>Professional Environment</strong>
+            <p>A hygienic, motivating, and energetic space that keeps you focused and driven toward your goals.</p>
+          </div>
+        </div>
+        <div class="about-item">
+          <div class="about-item-icon">🔥</div>
+          <div class="about-item-text">
+            <strong>Proven Transformations</strong>
+            <p>Hundreds of members have achieved life-changing results under the guidance of our expert coaches.</p>
+          </div>
+        </div>
+        <div class="about-item">
+          <div class="about-item-icon">🤝</div>
+          <div class="about-item-text">
+            <strong>Supportive Community</strong>
+            <p>Join a powerful community that celebrates every milestone and keeps you accountable every day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section id="services" class="section" aria-label="Our services">
+  <div class="services-header text-center reveal">
+    <div class="section-label">What We Offer</div>
+    <h2 class="section-title">World-Class <span>Services</span></h2>
+    <p class="section-sub">Every programme is designed to push your limits, sculpt your physique, and build lasting strength and endurance.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-num">01</div>
+      <div class="service-icon">🏋️</div>
+      <h3>Strength Training</h3>
+      <p>Build raw power and muscular endurance with our structured progressive overload programmes using barbells, dumbbells, and machines.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-num">02</div>
+      <div class="service-icon">🔥</div>
+      <h3>Weight Loss Training</h3>
+      <p>Targeted fat-burning workouts combining HIIT, circuit training, and metabolic conditioning to shed weight and transform your body.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <div class="service-num">03</div>
+      <div class="service-icon">💪</div>
+      <h3>Muscle Building</h3>
+      <p>Science-backed hypertrophy programmes crafted to maximise muscle gain with optimal volume, frequency, and nutrition guidance.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-4">
+      <div class="service-num">04</div>
+      <div class="service-icon">🎯</div>
+      <h3>Personal Training</h3>
+      <p>One-on-one coaching with certified trainers who create fully customised plans aligned with your specific fitness goals and timeline.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-num">05</div>
+      <div class="service-icon">🚴</div>
+      <h3>Cardio Training</h3>
+      <p>Boost cardiovascular health, stamina, and endurance with our diverse range of cardio equipment and guided aerobic programmes.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <div class="service-num">06</div>
+      <div class="service-icon">📋</div>
+      <h3>Fitness Coaching</h3>
+      <p>Comprehensive wellness coaching including diet planning, lifestyle assessment, progress tracking, and motivational support.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHY CHOOSE US -->
+<section id="why" class="section" aria-label="Why choose us">
+  <div class="why-inner">
+    <div class="why-header text-center reveal">
+      <div class="section-label">Our Advantages</div>
+      <h2 class="section-title">Why <span>Choose</span> PRO Fitness?</h2>
+      <p class="section-sub">We set the standard for fitness excellence in Bankura with facilities and services that rivals any premium gym.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-icon">⚡</div>
+        <div class="why-text">
+          <h4>Modern Equipment</h4>
+          <p>Premium-grade fitness equipment maintained to the highest standards for safe, effective workouts every session.</p>
+        </div>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-icon">🏆</div>
+        <div class="why-text">
+          <h4>Experienced Trainers</h4>
+          <p>Certified professionals with proven track records of transforming bodies and elevating fitness performance.</p>
+        </div>
+      </div>
+      <div class="why-card reveal reveal-delay-3">
+        <div class="why-icon">✨</div>
+        <div class="why-text">
+          <h4>Clean Environment</h4>
+          <p>Spotlessly maintained facility with rigorous hygiene protocols ensuring a safe and pleasant workout environment.</p>
+        </div>
+      </div>
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-icon">💰</div>
+        <div class="why-text">
+          <h4>Affordable Membership</h4>
+          <p>Flexible membership plans designed to deliver premium fitness at accessible price points for every budget.</p>
+        </div>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-icon">📊</div>
+        <div class="why-text">
+          <h4>Personalized Guidance</h4>
+          <p>Tailored workout and nutrition plans built around your unique body type, goals, and lifestyle requirements.</p>
+        </div>
+      </div>
+      <div class="why-card reveal reveal-delay-3">
+        <div class="why-icon">🤝</div>
+        <div class="why-text">
+          <h4>Community Support</h4>
+          <p>A vibrant, motivating community of like-minded fitness enthusiasts who celebrate and support each other.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MEMBERSHIP -->
+<section id="membership" class="section" aria-label="Membership plans">
+  <div class="mem-inner">
+    <div class="text-center reveal">
+      <div class="section-label">Pricing Plans</div>
+      <h2 class="section-title">Invest In Your <span>Transformation</span></h2>
+      <p class="section-sub">Choose the plan that fits your ambition. Every tier delivers real results with our world-class trainers and facilities.</p>
+    </div>
+    <div class="mem-grid">
+      <!-- Basic -->
+      <div class="mem-card reveal reveal-delay-1">
+        <div class="mem-header">
+          <div class="mem-tier">Entry Level</div>
+          <div class="mem-plan">Basic Plan</div>
+          <div class="mem-price">
+            <span class="currency">₹</span>
+            <span class="amount">799</span>
+            <span class="period">/ month</span>
+          </div>
+        </div>
+        <div class="mem-body">
+          <div class="mem-features">
+            <div class="mem-feat"><div class="check">✓</div> Gym Access (All Hours)</div>
+            <div class="mem-feat"><div class="check">✓</div> All Cardio Equipment</div>
+            <div class="mem-feat"><div class="check">✓</div> Free Weights Access</div>
+            <div class="mem-feat"><div class="check">✓</div> Locker Room</div>
+            <div class="mem-feat disabled"><div class="check">✗</div> Personal Training Sessions</div>
+            <div class="mem-feat disabled"><div class="check">✗</div> Diet & Nutrition Plan</div>
+            <div class="mem-feat disabled"><div class="check">✗</div> Progress Tracking</div>
+          </div>
+          <a href="tel:7384648673" class="mem-btn mem-btn-outline">Join Now →</a>
+        </div>
+      </div>
+      <!-- Standard (Featured) -->
+      <div class="mem-card featured reveal reveal-delay-2">
+        <div class="mem-badge">Most Popular</div>
+        <div class="mem-header">
+          <div class="mem-tier">Best Value</div>
+          <div class="mem-plan">Standard Plan</div>
+          <div class="mem-price">
+            <span class="currency">₹</span>
+            <span class="amount">1299</span>
+            <span class="period">/ month</span>
+          </div>
+        </div>
+        <div class="mem-body">
+          <div class="mem-features">
+            <div class="mem-feat"><div class="check">✓</div> Gym Access (All Hours)</div>
+            <div class="mem-feat"><div class="check">✓</div> All Cardio Equipment</div>
+            <div class="mem-feat"><div class="check">✓</div> Free Weights + Machines</div>
+            <div class="mem-feat"><div class="check">✓</div> 4 Personal Training Sessions</div>
+            <div class="mem-feat"><div class="check">✓</div> Basic Diet Guidance</div>
+            <div class="mem-feat"><div class="check">✓</div> Progress Tracking</div>
+            <div class="mem-feat disabled"><div class="check">✗</div> Full Nutrition Plan</div>
+          </div>
+          <a href="tel:7384648673" class="mem-btn mem-btn-fill">Join Now →</a>
+        </div>
+      </div>
+      <!-- Premium -->
+      <div class="mem-card reveal reveal-delay-3">
+        <div class="mem-header">
+          <div class="mem-tier">Elite</div>
+          <div class="mem-plan">Premium Plan</div>
+          <div class="mem-price">
+            <span class="currency">₹</span>
+            <span class="amount">1999</span>
+            <span class="period">/ month</span>
+          </div>
+        </div>
+        <div class="mem-body">
+          <div class="mem-features">
+            <div class="mem-feat"><div class="check">✓</div> Unlimited Gym Access</div>
+            <div class="mem-feat"><div class="check">✓</div> All Cardio + Equipment</div>
+            <div class="mem-feat"><div class="check">✓</div> Unlimited Personal Training</div>
+            <div class="mem-feat"><div class="check">✓</div> Custom Nutrition Plan</div>
+            <div class="mem-feat"><div class="check">✓</div> Weekly Progress Reports</div>
+            <div class="mem-feat"><div class="check">✓</div> Body Composition Analysis</div>
+            <div class="mem-feat"><div class="check">✓</div> Priority Trainer Support</div>
+          </div>
+          <a href="tel:7384648673" class="mem-btn mem-btn-outline">Join Now →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="section" aria-label="Customer reviews">
+  <div class="test-inner">
+    <div class="reveal">
+      <div class="section-label">Reviews</div>
+      <h2 class="section-title">What Our Members <span>Say</span></h2>
+    </div>
+    <div class="rating-showcase reveal reveal-delay-1">
+      <div class="rating-num">5.0</div>
+      <div class="rating-details">
+        <div class="stars">★★★★★</div>
+        <div style="font-size:17px;font-weight:800;color:var(--white);margin-top:4px;">221 Reviews</div>
+        <div class="rating-count">100% Positive · Google Reviews</div>
+      </div>
+      <div class="rating-bar-group">
+        <div class="rating-row"><span>5★</span><div class="rating-bar-bg"><div class="rating-bar-fill" style="width:0" data-width="100"></div></div><span style="width:auto;color:var(--off-white)">221</span></div>
+        <div class="rating-row"><span>4★</span><div class="rating-bar-bg"><div class="rating-bar-fill" style="width:0" data-width="0"></div></div><span style="width:auto;color:var(--off-white)">0</span></div>
+        <div class="rating-row"><span>3★</span><div class="rating-bar-bg"><div class="rating-bar-fill" style="width:0" data-width="0"></div></div><span style="width:auto;color:var(--off-white)">0</span></div>
+      </div>
+    </div>
+    <div class="test-slider-wrap reveal reveal-delay-2">
+      <div class="test-slider" id="testSlider">
+        <div class="test-card">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-text">"PRO Fitness Zone has completely changed my life. The trainers are incredibly knowledgeable and the equipment is top-notch. I've lost 18 kg in 5 months!"</p>
+          <div class="test-author">
+            <img src="https://i.pravatar.cc/150?img=11" alt="Member Rahul" class="test-avatar">
+            <div><div class="test-name">Rahul Sharma</div><div class="test-since">Member since 2023</div></div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-text">"Best gym in Bankura without any doubt. The environment is super motivating and the trainers genuinely care about your progress. Highly recommended!"</p>
+          <div class="test-author">
+            <img src="https://i.pravatar.cc/150?img=5" alt="Member Priya" class="test-avatar">
+            <div><div class="test-name">Priya Dey</div><div class="test-since">Member since 2022</div></div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-text">"I joined PRO Fitness Zone for weight loss and the results have been amazing. The personal training sessions are worth every rupee. Great facility!"</p>
+          <div class="test-author">
+            <img src="https://i.pravatar.cc/150?img=8" alt="Member Anik" class="test-avatar">
+            <div><div class="test-name">Anik Chatterjee</div><div class="test-since">Member since 2024</div></div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-text">"The trainers here are truly professional. My muscle gain has been phenomenal and the gym is always clean and well-maintained. 5 stars all the way!"</p>
+          <div class="test-author">
+            <img src="https://i.pravatar.cc/150?img=15" alt="Member Subham" class="test-avatar">
+            <div><div class="test-name">Subham Mondal</div><div class="test-since">Member since 2023</div></div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-text">"Affordable, professional, and results-driven. PRO Fitness Zone is miles ahead of any other gym in Bankura. The community here keeps me coming back every day!"</p>
+          <div class="test-author">
+            <img src="https://i.pravatar.cc/150?img=20" alt="Member Monika" class="test-avatar">
+            <div><div class="test-name">Monika Das</div><div class="test-since">Member since 2022</div></div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-text">"Outstanding gym with outstanding people. The trainers push you to your absolute limits in the best way possible. My fitness has transformed beyond recognition!"</p>
+          <div class="test-author">
+            <img src="https://i.pravatar.cc/150?img=27" alt="Member Sourav" class="test-avatar">
+            <div><div class="test-name">Sourav Ghosh</div><div class="test-since">Member since 2024</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="test-controls">
+      <button class="test-btn" id="testPrev" aria-label="Previous testimonial">←</button>
+      <div class="test-dots" id="testDots"></div>
+      <button class="test-btn" id="testNext" aria-label="Next testimonial">→</button>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GALLERY -->
+<section id="gallery" class="section" aria-label="Photo gallery">
+  <div class="gallery-inner">
+    <div class="text-center reveal">
+      <div class="section-label">Our Facility</div>
+      <h2 class="section-title">Inside <span>PRO Fitness</span> Zone</h2>
+      <p class="section-sub">A glimpse into Bankura's most premium fitness facility — built for champions, welcoming to all.</p>
+    </div>
+    <div class="gallery-grid reveal reveal-delay-1">
+      <div class="gallery-item" tabindex="0" role="button" aria-label="View gym image 1">
+        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80" alt="Gym floor with equipment" class="gallery-img" loading="lazy">
+        <div class="gallery-overlay"><div class="gallery-zoom">🔍</div></div>
+      </div>
+      <div class="gallery-item" tabindex="0" role="button" aria-label="View gym image 2">
+        <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=500&q=80" alt="Weight training area" class="gallery-img" loading="lazy">
+        <div class="gallery-overlay"><div class="gallery-zoom">🔍</div></div>
+      </div>
+      <div class="gallery-item" tabindex="0" role="button" aria-label="View gym image 3">
+        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=500&q=80" alt="Cardio equipment" class="gallery-img" loading="lazy">
+        <div class="gallery-overlay"><div class="gallery-zoom">🔍</div></div>
+      </div>
+      <div class="gallery-item" tabindex="0" role="button" aria-label="View gym image 4">
+        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80" alt="Training session" class="gallery-img" loading="lazy">
+        <div class="gallery-overlay"><div class="gallery-zoom">🔍</div></div>
+      </div>
+      <div class="gallery-item" tabindex="0" role="button" aria-label="View gym image 5">
+        <img src="https://images.unsplash.com/photo-1576678927484-cc907957088c?w=500&q=80" alt="Dumbbells rack" class="gallery-img" loading="lazy">
+        <div class="gallery-overlay"><div class="gallery-zoom">🔍</div></div>
+      </div>
+      <div class="gallery-item" tabindex="0" role="button" aria-label="View gym image 6">
+        <img src="https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?w=500&q=80" alt="Boxing and crossfit area" class="gallery-img" loading="lazy">
+        <div class="gallery-overlay"><div class="gallery-zoom">🔍</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INSTAGRAM -->
+<section id="instagram" class="section" aria-label="Instagram">
+  <div class="insta-inner reveal">
+    <div class="section-label">Social Media</div>
+    <h2 class="section-title">Follow Our <span>Journey</span></h2>
+    <div class="insta-card">
+      <div class="insta-logo">📸</div>
+      <div class="insta-handle">@_profitnesszone_</div>
+      <p class="insta-desc">Follow us on Instagram for daily workout motivation, transformation stories, tips from our trainers, and the latest updates from PRO Fitness Zone.</p>
+      <a href="https://www.instagram.com/_profitnesszone_/" target="_blank" rel="noopener noreferrer" class="insta-btn" aria-label="Follow PRO Fitness Zone on Instagram">
+        📸 Follow On Instagram
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact" class="section" aria-label="Contact us">
+  <div class="contact-inner">
+    <div class="reveal">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Start Your <span>Journey</span> Today</h2>
+      <p class="section-sub">Ready to transform? Contact us now and one of our trainers will get back to you within minutes.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal reveal-delay-1">
+        <div class="contact-item">
+          <div class="ci-icon">📍</div>
+          <div class="ci-text">
+            <label>Address</label>
+            <p>63V3+7X8, Paddapukur Palli,<br>Bankura, West Bengal 722101</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">📞</div>
+          <div class="ci-text">
+            <label>Phone</label>
+            <p><a href="tel:7384648673">+91 73846 48673</a></p>
+            <div class="action-btns" style="margin-top:12px">
+              <a href="tel:7384648673" class="action-btn call-btn">📞 Call Us</a>
+              <a href="https://wa.me/917384648673?text=Hi%2C+I%27m+interested+in+joining+PRO+Fitness+Zone!" target="_blank" rel="noopener noreferrer" class="action-btn wa-btn">💬 WhatsApp</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">📸</div>
+          <div class="ci-text">
+            <label>Instagram</label>
+            <p><a href="https://www.instagram.com/_profitnesszone_/" target="_blank" rel="noopener noreferrer">@_profitnesszone_</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">⏰</div>
+          <div class="ci-text">
+            <label>Hours</label>
+            <p>Mon – Sat: 5:00 AM – 10:00 PM<br>Sunday: 6:00 AM – 8:00 PM</p>
+          </div>
+        </div>
+        <div class="map-wrap">
+          <iframe
+            src="https://maps.google.com/maps?q=63V3%2B7X8+Paddapukur+Palli+Bankura+West+Bengal+722101&output=embed"
+            title="PRO Fitness Zone location on Google Maps"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+      <div class="contact-form-wrap reveal reveal-delay-2">
+        <h3>Send Us A Message</h3>
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" name="fname" placeholder="Your first name" required autocomplete="given-name">
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" name="lname" placeholder="Your last name" autocomplete="family-name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" autocomplete="tel">
+          </div>
+          <div class="form-group">
+            <label for="interest">I'm Interested In</label>
+            <select id="interest" name="interest">
+              <option value="">Select a service...</option>
+              <option>Strength Training</option>
+              <option>Weight Loss Training</option>
+              <option>Muscle Building</option>
+              <option>Personal Training</option>
+              <option>Cardio Training</option>
+              <option>Fitness Coaching</option>
+              <option>Membership Enquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us about your fitness goals..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message ✉️</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer aria-label="Site footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="footer-logo-icon">💪</div>
+        PRO <span>FITNESS</span> ZONE
+      </div>
+      <p class="footer-desc">Bankura's premier fitness destination. Transform your body, build your strength, and unlock your true potential with PRO Fitness Zone.</p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/_profitnesszone_/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">📸</a>
+        <a href="https://wa.me/917384648673" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="WhatsApp">💬</a>
+        <a href="tel:7384648673" class="social-btn" aria-label="Call us">📞</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#about">About Us</a>
+        <a href="#services">Services</a>
+        <a href="#membership">Membership Plans</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact Us</a>
+      </nav>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <nav class="footer-links" aria-label="Services navigation">
+        <a href="#services">Strength Training</a>
+        <a href="#services">Weight Loss</a>
+        <a href="#services">Muscle Building</a>
+        <a href="#services">Personal Training</a>
+        <a href="#services">Cardio Training</a>
+        <a href="#services">Fitness Coaching</a>
+      </nav>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Info</h4>
+      <address class="footer-contact-list" style="font-style:normal">
+        <div class="fci"><span>📍</span> 63V3+7X8, Paddapukur Palli, Bankura, WB 722101</div>
+        <div class="fci"><span>📞</span> <a href="tel:7384648673">+91 73846 48673</a></div>
+        <div class="fci"><span>📸</span> <a href="https://www.instagram.com/_profitnesszone_/" target="_blank" rel="noopener noreferrer">@_profitnesszone_</a></div>
+        <div class="fci"><span>⏰</span> Mon–Sat: 5AM–10PM · Sun: 6AM–8PM</div>
+      </address>
+    </div>
+  </div>
+  <div style="border-top:1px solid var(--glass-border)">
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 <span>PRO Fitness Zone</span>. All Rights Reserved. Bankura, West Bengal.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING BUTTONS -->
+<div class="float-btns">
+  <a href="https://wa.me/917384648673?text=Hi%2C+I%27m+interested+in+joining+PRO+Fitness+Zone!" target="_blank" rel="noopener noreferrer" class="float-btn float-wa" aria-label="Contact on WhatsApp" title="Chat on WhatsApp">💬</a>
+  <button class="float-btn float-top" id="backTop" aria-label="Back to top" title="Back to top">↑</button>
+</div>
+
+<script>
+/* ============================================================
+   LOADER
+   ============================================================ */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 1900);
+});
+
+/* ============================================================
+   NAVBAR SCROLL
+   ============================================================ */
+const navbar = document.getElementById('navbar');
+const backTop = document.getElementById('backTop');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+  backTop.classList.toggle('visible', window.scrollY > 400);
+}, { passive: true });
+
+backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ============================================================
+   HAMBURGER MENU
+   ============================================================ */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const isOpen = hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open', isOpen);
+  hamburger.setAttribute('aria-expanded', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+document.querySelectorAll('.mob-link').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  });
+});
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+const reveals = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+reveals.forEach(el => revealObs.observe(el));
+
+/* ============================================================
+   ANIMATED COUNTERS
+   ============================================================ */
+function animateCounter(el, target, suffix = '') {
+  let start = 0;
+  const dur = 2000;
+  const step = dur / target;
+  const timer = setInterval(() => {
+    start += Math.ceil(target / (dur / 16));
+    if (start >= target) { el.textContent = target + suffix; clearInterval(timer); }
+    else { el.textContent = start + suffix; }
+  }, 16);
+}
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target;
+      const count = parseInt(el.dataset.count);
+      const suffix = el.dataset.suffix || '+';
+      if (count) animateCounter(el, count, suffix);
+      counterObs.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => counterObs.observe(el));
+
+/* ============================================================
+   RATING BARS
+   ============================================================ */
+const barObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.rating-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+      barObs.disconnect();
+    }
+  });
+}, { threshold: 0.5 });
+const showcase = document.querySelector('.rating-showcase');
+if (showcase) barObs.observe(showcase);
+
+/* ============================================================
+   TESTIMONIAL SLIDER
+   ============================================================ */
+const slider = document.getElementById('testSlider');
+const dotsWrap = document.getElementById('testDots');
+let currentSlide = 0;
+let perView = window.innerWidth < 640 ? 1 : window.innerWidth < 900 ? 2 : 3;
+const cards = slider.querySelectorAll('.test-card');
+const totalSlides = Math.ceil(cards.length / perView);
+
+function buildDots() {
+  dotsWrap.innerHTML = '';
+  for (let i = 0; i < totalSlides; i++) {
+    const d = document.createElement('div');
+    d.className = 'test-dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(d);
+  }
+}
+function updateDots() {
+  dotsWrap.querySelectorAll('.test-dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+}
+function goTo(n) {
+  currentSlide = (n + totalSlides) % totalSlides;
+  const cardW = slider.parentElement.offsetWidth / perView;
+  slider.style.transform = `translateX(-${currentSlide * perView * cardW + currentSlide * 20}px)`;
+  updateDots();
+}
+document.getElementById('testNext').addEventListener('click', () => goTo(currentSlide + 1));
+document.getElementById('testPrev').addEventListener('click', () => goTo(currentSlide - 1));
+buildDots();
+
+window.addEventListener('resize', () => {
+  perView = window.innerWidth < 640 ? 1 : window.innerWidth < 900 ? 2 : 3;
+  buildDots();
+  goTo(0);
+}, { passive: true });
+
+// Auto advance
+setInterval(() => goTo(currentSlide + 1), 5000);
+
+/* ============================================================
+   GALLERY LIGHTBOX
+   ============================================================ */
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lb-img');
+document.querySelectorAll('.gallery-item').forEach(item => {
+  const openLb = () => {
+    const src = item.querySelector('img').src;
+    const alt = item.querySelector('img').alt;
+    lbImg.src = src;
+    lbImg.alt = alt;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  item.addEventListener('click', openLb);
+  item.addEventListener('keydown', e => { if (e.key === 'Enter') openLb(); });
+});
+document.getElementById('lb-close').addEventListener('click', () => {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+});
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox) {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+/* ============================================================
+   CONTACT FORM
+   ============================================================ */
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const btn = this.querySelector('.form-submit');
+  btn.textContent = 'Message Sent! ✅';
+  btn.style.background = '#22c55e';
+  btn.style.boxShadow = '0 0 25px rgba(34,197,94,0.5)';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = 'Send Message ✉️';
+    btn.style.background = '';
+    btn.style.boxShadow = '';
+    btn.disabled = false;
+    this.reset();
+  }, 4000);
+});
+
+/* ============================================================
+   SMOOTH ACTIVE NAV
+   ============================================================ */
+const sections = document.querySelectorAll('section[id]');
+const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+const sectionObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navAnchors.forEach(a => a.style.color = a.getAttribute('href') === '#' + e.target.id ? 'var(--white)' : '');
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => sectionObs.observe(s));
+</script>
+</body>
+</html>
